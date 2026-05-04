@@ -7,7 +7,11 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js"
   },
-  "keywords": ["backend", "usuarios", "crud"],
+  "keywords": [
+    "backend",
+    "usuarios",
+    "crud"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {

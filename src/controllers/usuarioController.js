@@ -5,10 +5,6 @@
 
 const { sendSuccess, sendError } = require("../handlers/responseHandler");
 const usuarioService = require("../services/usuarioService");
-const {
-  createUsuarioSchema,
-  updateUsuarioSchema,
-} = require("../validations/usuarioValidation");
 
 /**
  * POST /usuarios
@@ -16,20 +12,7 @@ const {
  */
 const crearUsuario = (req, res) => {
   try {
-    // Validamos los datos de entrada
-    const { error, value } = createUsuarioSchema.validate(req.body);
-
-    if (error) {
-      return sendError(
-        res,
-        "Error en validación de datos",
-        400,
-        error.details.map((err) => err.message),
-      );
-    }
-
-    // Llamamos al servicio para crear el usuario
-    const usuarioCreado = usuarioService.crearUsuario(value);
+    const usuarioCreado = usuarioService.crearUsuario(req.body);
 
     // Respondemos con éxito
     return sendSuccess(res, usuarioCreado, "Usuario creado exitosamente", 201);
@@ -78,19 +61,8 @@ const obtenerUsuarioPorId = (req, res) => {
  */
 const actualizarUsuario = (req, res) => {
   try {
-    const { error, value } = updateUsuarioSchema.validate(req.body);
-
-    if (error) {
-      return sendError(
-        res,
-        "Error en validación de datos",
-        400,
-        error.details.map((err) => err.message),
-      );
-    }
-
     const { id } = req.params;
-    const usuarioActualizado = usuarioService.actualizarUsuario(id, value);
+    const usuarioActualizado = usuarioService.actualizarUsuario(id, req.body);
 
     if (!usuarioActualizado) {
       return sendError(res, "Usuario no encontrado", 404);
