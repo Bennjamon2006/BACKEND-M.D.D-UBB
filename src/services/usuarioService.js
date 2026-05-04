@@ -15,6 +15,16 @@ const generarId = () => idActual++;
 
 const camposEditables = ["nombre", "apellido", "email", "edad"];
 
+const clonarUsuario = (usuario) => {
+  return {
+    id: usuario.id,
+    nombre: usuario.nombre,
+    apellido: usuario.apellido,
+    email: usuario.email,
+    edad: usuario.edad,
+  };
+};
+
 /**
  * Crear un nuevo usuario
  * @param {Object} datosUsuario - { nombre, apellido, email, edad }
@@ -38,7 +48,7 @@ const crearUsuario = (datosUsuario) => {
  * @returns {Array} Array de todos los usuarios
  */
 const obtenerTodosLosUsuarios = () => {
-  return Array.from(usuarios.values());
+  return Array.from(usuarios.values()).map((usuario) => clonarUsuario(usuario));
 };
 
 /**
@@ -51,7 +61,7 @@ const obtenerUsuarioPorId = (id) => {
 
   if (!usuario) return null;
 
-  return usuario;
+  return clonarUsuario(usuario);
 };
 
 /**
@@ -78,7 +88,7 @@ const actualizarUsuario = (id, datosActualizados) => {
   usuarioActualizado.id = id;
 
   usuarios.set(usuarioActualizado.id, usuarioActualizado);
-  return usuarioActualizado;
+  return clonarUsuario(usuarioActualizado);
 };
 
 /**
