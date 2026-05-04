@@ -7,8 +7,11 @@
  */
 
 // Almacenamiento temporal en memoria (SOLO para desarrollo)
-let usuarios = [];
-let idContador = 1;
+let usuarios = new Map();
+
+let idActual = 1;
+
+const generarId = () => idActual++;
 
 /**
  * Crear un nuevo usuario
@@ -17,12 +20,12 @@ let idContador = 1;
  */
 const crearUsuario = (datosUsuario) => {
   const nuevoUsuario = {
-    id: idContador++,
+    id: generarId(),
     ...datosUsuario,
     fechaRegistro: new Date().toISOString(),
   };
 
-  usuarios.push(nuevoUsuario);
+  usuarios.set(nuevoUsuario.id, nuevoUsuario);
   return nuevoUsuario;
 };
 
@@ -31,7 +34,7 @@ const crearUsuario = (datosUsuario) => {
  * @returns {Array} Array de todos los usuarios
  */
 const obtenerTodosLosUsuarios = () => {
-  return usuarios;
+  return Array.from(usuarios.values());
 };
 
 /**
@@ -40,7 +43,7 @@ const obtenerTodosLosUsuarios = () => {
  * @returns {Object|null} El usuario encontrado o null
  */
 const obtenerUsuarioPorId = (id) => {
-  const usuario = usuarios.find((usuario) => usuario.id === parseInt(id));
+  const usuario = usuarios.get(id);
 
   if (!usuario) return null;
 
@@ -54,16 +57,18 @@ const obtenerUsuarioPorId = (id) => {
  * @returns {Object|null} El usuario actualizado o null si no existe
  */
 const actualizarUsuario = (id, datosActualizados) => {
-  const indice = usuarios.findIndex((usuario) => usuario.id === parseInt(id));
+  const usuario = usuarios.get(id);
 
-  if (indice === -1) return null;
+  if (!usuario) return null;
 
-  usuarios[indice] = {
-    ...usuarios[indice],
+  const usuarioActualizado = {
+    ...usuario,
     ...datosActualizados,
+    fechaActualizacion: new Date().toISOString(),
   };
 
-  return usuarios[indice];
+  usuarios.set(usuarioActualizado.id, usuarioActualizado);
+  return usuarioActualizado;
 };
 
 /**
@@ -72,9 +77,10 @@ const actualizarUsuario = (id, datosActualizados) => {
  * @returns {boolean} true si se eliminó, false si no existe
  */
 const eliminarUsuario = (id) => {
-  const index = usuarios.findIndex((usuario) => usuario.id === parseInt(id));
-  if (index === -1) return false;
-  usuarios.splice(index, 1);
+  if (!usuarios.has(id)) return false;
+
+  usuarios.delete(id);
+
   return true;
 };
 
