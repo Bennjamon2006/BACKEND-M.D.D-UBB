@@ -13,6 +13,8 @@ let idActual = 1;
 
 const generarId = () => idActual++;
 
+const camposEditables = ["nombre", "apellido", "email", "edad"];
+
 /**
  * Crear un nuevo usuario
  * @param {Object} datosUsuario - { nombre, apellido, email, edad }
@@ -21,9 +23,11 @@ const generarId = () => idActual++;
 const crearUsuario = (datosUsuario) => {
   const nuevoUsuario = {
     id: generarId(),
-    ...datosUsuario,
-    fechaRegistro: new Date().toISOString(),
   };
+
+  camposEditables.forEach((campo) => {
+    nuevoUsuario[campo] = datosUsuario[campo];
+  });
 
   usuarios.set(nuevoUsuario.id, nuevoUsuario);
   return nuevoUsuario;
@@ -61,11 +65,17 @@ const actualizarUsuario = (id, datosActualizados) => {
 
   if (!usuario) return null;
 
-  const usuarioActualizado = {
-    ...usuario,
-    ...datosActualizados,
-    fechaActualizacion: new Date().toISOString(),
-  };
+  const usuarioActualizado = {};
+
+  camposEditables.forEach((campo) => {
+    if (campo in datosActualizados) {
+      usuarioActualizado[campo] = datosActualizados[campo];
+    } else {
+      usuarioActualizado[campo] = usuario[campo];
+    }
+  });
+
+  usuarioActualizado.id = id;
 
   usuarios.set(usuarioActualizado.id, usuarioActualizado);
   return usuarioActualizado;
