@@ -13,6 +13,8 @@ let idActual = 1;
 
 const generarId = () => idActual++;
 
+const toId = (id) => parseInt(id, 10);
+
 const camposEditables = ["nombre", "apellido", "email", "edad"];
 
 const clonarUsuario = (usuario) => {
@@ -40,7 +42,7 @@ const crearUsuario = (datosUsuario) => {
   });
 
   usuarios.set(nuevoUsuario.id, nuevoUsuario);
-  return nuevoUsuario;
+  return clonarUsuario(nuevoUsuario);
 };
 
 /**
@@ -57,7 +59,7 @@ const obtenerTodosLosUsuarios = () => {
  * @returns {Object|null} El usuario encontrado o null
  */
 const obtenerUsuarioPorId = (id) => {
-  const usuario = usuarios.get(id);
+  const usuario = usuarios.get(toId(id));
 
   if (!usuario) return null;
 
@@ -71,7 +73,7 @@ const obtenerUsuarioPorId = (id) => {
  * @returns {Object|null} El usuario actualizado o null si no existe
  */
 const actualizarUsuario = (id, datosActualizados) => {
-  const usuario = usuarios.get(id);
+  const usuario = usuarios.get(toId(id));
 
   if (!usuario) return null;
 
@@ -85,7 +87,7 @@ const actualizarUsuario = (id, datosActualizados) => {
     }
   });
 
-  usuarioActualizado.id = id;
+  usuarioActualizado.id = toId(id);
 
   usuarios.set(usuarioActualizado.id, usuarioActualizado);
   return clonarUsuario(usuarioActualizado);
@@ -97,9 +99,9 @@ const actualizarUsuario = (id, datosActualizados) => {
  * @returns {boolean} true si se eliminó, false si no existe
  */
 const eliminarUsuario = (id) => {
-  if (!usuarios.has(id)) return false;
+  if (!usuarios.has(toId(id))) return false;
 
-  usuarios.delete(id);
+  usuarios.delete(toId(id));
 
   return true;
 };
