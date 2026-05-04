@@ -18,16 +18,19 @@ src/
 ## Instalación
 
 1. Instala las dependencias:
+
 ```bash
 npm install
 ```
 
 2. Copia las variables de entorno:
+
 ```bash
 cp .env.example .env
 ```
 
 3. Inicia el servidor:
+
 ```bash
 npm run dev
 ```
@@ -37,9 +40,11 @@ El servidor estará disponible en `http://localhost:3000`
 ## Endpoints
 
 ### Crear Usuario (Implementado)
+
 `POST /usuarios`
 
 Body:
+
 ```json
 {
   "nombre": "Juan",
@@ -49,13 +54,16 @@ Body:
 }
 ```
 
-### Obtener Usuarios (Por implementar)
+### Obtener Usuarios (Implementado)
+
 `GET /usuarios`
 
-### Obtener Usuario por ID (Por implementar)
+### Obtener Usuario por ID (Implementado)
+
 `GET /usuarios/:id`
 
-### Actualizar Usuario (Por implementar)
+### Actualizar Usuario (Implementado)
+
 `PATCH /usuarios/:id`
 
 ## Notas Importantes
@@ -71,3 +79,7 @@ Body:
 2. **Completa el endpoint GET /usuarios/:id** - Debe retornar un usuario específico
 3. **Completa el endpoint PATCH /usuarios/:id** - Debe actualizar un usuario existente
 4. **Agrega validaciones** si lo consideras necesario en `src/validations/`
+
+## Tarea completada
+
+Tarea completada por Benjamín Rivas, estudiante de la carrera de Ingeniería de Ejecución en Computación e Informática en la Universidad del Bío-Bío.

@@ -3,9 +3,9 @@
  * Inicializa el servidor Express
  */
 
-const express = require('express');
-const config = require('./config/config');
-const usuarioRoutes = require('./routes/usuarioRoutes');
+const express = require("express");
+const config = require("./config/config");
+const usuarioRoutes = require("./routes/usuarioRoutes");
 
 const app = express();
 
@@ -13,13 +13,13 @@ const app = express();
 app.use(express.json());
 
 // Rutas
-app.use('/usuarios', usuarioRoutes);
+app.use("/usuarios", usuarioRoutes);
 
 // Ruta de prueba
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.json({
-    mensaje: 'Bienvenido al backend de usuarios',
-    version: '1.0.0'
+    mensaje: "Bienvenido al backend de usuarios",
+    version: "1.0.0",
   });
 });
 
@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 app.use((req, res) => {
   res.status(404).json({
     success: false,
-    mensaje: 'Ruta no encontrada'
+    mensaje: "Ruta no encontrada",
   });
 });
 
@@ -37,7 +37,7 @@ app.listen(config.PORT, () => {
   console.log(`🔗 http://localhost:${config.PORT}`);
   console.log(`📚 Endpoints disponibles:`);
   console.log(`   POST   /usuarios       - Crear usuario (implementado)`);
-  console.log(`   GET    /usuarios       - Obtener todos (por completar)`);
-  console.log(`   GET    /usuarios/:id   - Obtener por ID (por completar)`);
-  console.log(`   PATCH  /usuarios/:id   - Actualizar (por completar)`);
+  console.log(`   GET    /usuarios       - Obtener todos (implementado)`);
+  console.log(`   GET    /usuarios/:id   - Obtener por ID (implementado)`);
+  console.log(`   PATCH  /usuarios/:id   - Actualizar (implementado)`);
 });

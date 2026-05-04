@@ -1,7 +1,7 @@
 /**
  * Servicio de Usuarios
  * Contiene la lógica de negocio para gestionar usuarios
- * 
+ *
  * Nota: Actualmente almacenamos en memoria con un array
  * Esta semana lo conectaremos a una base de datos real
  */
@@ -19,7 +19,7 @@ const crearUsuario = (datosUsuario) => {
   const nuevoUsuario = {
     id: idContador++,
     ...datosUsuario,
-    fechaRegistro: new Date().toISOString()
+    fechaRegistro: new Date().toISOString(),
   };
 
   usuarios.push(nuevoUsuario);
@@ -30,10 +30,8 @@ const crearUsuario = (datosUsuario) => {
  * Obtener todos los usuarios
  * @returns {Array} Array de todos los usuarios
  */
-// TODO: Completa esta función
 const obtenerTodosLosUsuarios = () => {
-  // Ayudita: Solo retorna el array de usuarios
-  // Hazlo simple: return usuarios;
+  return usuarios;
 };
 
 /**
@@ -41,10 +39,12 @@ const obtenerTodosLosUsuarios = () => {
  * @param {Number} id - ID del usuario
  * @returns {Object|null} El usuario encontrado o null
  */
-// TODO: Completa esta función
 const obtenerUsuarioPorId = (id) => {
-  // Ayudita: Usa .find() para buscar en el array
-  // Ejemplo: usuarios.find(usuario => usuario.id === parseInt(id))
+  const usuario = usuarios.find((usuario) => usuario.id === parseInt(id));
+
+  if (!usuario) return null;
+
+  return usuario;
 };
 
 /**
@@ -53,13 +53,17 @@ const obtenerUsuarioPorId = (id) => {
  * @param {Object} datosActualizados - Campos a actualizar
  * @returns {Object|null} El usuario actualizado o null si no existe
  */
-// TODO: Completa esta función
 const actualizarUsuario = (id, datosActualizados) => {
-  // Ayudita: 
-  // 1. Busca el usuario con .findIndex()
-  // 2. Si no existe, retorna null
-  // 3. Si existe, actualiza los campos: usuarios[index] = { ...usuarios[index], ...datosActualizados }
-  // 4. Retorna el usuario actualizado
+  const indice = usuarios.findIndex((usuario) => usuario.id === parseInt(id));
+
+  if (indice === -1) return null;
+
+  usuarios[indice] = {
+    ...usuarios[indice],
+    ...datosActualizados,
+  };
+
+  return usuarios[indice];
 };
 
 /**
@@ -68,7 +72,7 @@ const actualizarUsuario = (id, datosActualizados) => {
  * @returns {boolean} true si se eliminó, false si no existe
  */
 const eliminarUsuario = (id) => {
-  const index = usuarios.findIndex(usuario => usuario.id === parseInt(id));
+  const index = usuarios.findIndex((usuario) => usuario.id === parseInt(id));
   if (index === -1) return false;
   usuarios.splice(index, 1);
   return true;
@@ -79,5 +83,5 @@ module.exports = {
   obtenerTodosLosUsuarios,
   obtenerUsuarioPorId,
   actualizarUsuario,
-  eliminarUsuario
+  eliminarUsuario,
 };

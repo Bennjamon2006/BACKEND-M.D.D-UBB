@@ -3,9 +3,12 @@
  * Maneja las peticiones HTTP relacionadas con usuarios
  */
 
-const { sendSuccess, sendError } = require('../handlers/responseHandler');
-const usuarioService = require('../services/usuarioService');
-const { createUsuarioSchema, updateUsuarioSchema } = require('../validations/usuarioValidation');
+const { sendSuccess, sendError } = require("../handlers/responseHandler");
+const usuarioService = require("../services/usuarioService");
+const {
+  createUsuarioSchema,
+  updateUsuarioSchema,
+} = require("../validations/usuarioValidation");
 
 /**
  * POST /usuarios
@@ -19,9 +22,9 @@ const crearUsuario = (req, res) => {
     if (error) {
       return sendError(
         res,
-        'Error en validación de datos',
+        "Error en validación de datos",
         400,
-        error.details.map(err => err.message)
+        error.details.map((err) => err.message),
       );
     }
 
@@ -29,70 +32,77 @@ const crearUsuario = (req, res) => {
     const usuarioCreado = usuarioService.crearUsuario(value);
 
     // Respondemos con éxito
-    return sendSuccess(
-      res,
-      usuarioCreado,
-      'Usuario creado exitosamente',
-      201
-    );
+    return sendSuccess(res, usuarioCreado, "Usuario creado exitosamente", 201);
   } catch (error) {
-    return sendError(res, 'Error al crear usuario', 500);
+    return sendError(res, "Error al crear usuario", 500);
   }
 };
 
 /**
  * GET /usuarios
  * Obtiene todos los usuarios
- * 
- * TODO: Completa esta función
  */
 const obtenerTodosLosUsuarios = (req, res) => {
   try {
-    // Ayudita: 
-    // 1. Llama a usuarioService.obtenerTodosLosUsuarios()
-    // 2. Responde con sendSuccess(res, usuarios, 'Usuarios obtenidos')
-    
+    const usuarios = usuarioService.obtenerTodosLosUsuarios();
+
+    return sendSuccess(res, usuarios, "Usuarios obtenidos exitosamente");
   } catch (error) {
-    return sendError(res, 'Error al obtener usuarios', 500);
+    return sendError(res, "Error al obtener usuarios", 500);
   }
 };
 
 /**
  * GET /usuarios/:id
  * Obtiene un usuario específico por ID
- * 
- * TODO: Completa esta función
+ *
  */
 const obtenerUsuarioPorId = (req, res) => {
   try {
-    // Ayudita:
-    // 1. Obtén el ID de req.params.id
-    // 2. Llama a usuarioService.obtenerUsuarioPorId(id)
-    // 3. Si el usuario NO existe, responde con sendError(res, 'Usuario no encontrado', 404)
-    // 4. Si el usuario EXISTE, responde con sendSuccess(res, usuario, 'Usuario encontrado')
-    
+    const { id } = req.params;
+    const usuario = usuarioService.obtenerUsuarioPorId(id);
+
+    if (!usuario) {
+      return sendError(res, "Usuario no encontrado", 404);
+    }
+
+    return sendSuccess(res, usuario, "Usuario obtenido exitosamente");
   } catch (error) {
-    return sendError(res, 'Error al obtener usuario', 500);
+    return sendError(res, "Error al obtener usuario", 500);
   }
 };
 
 /**
  * PATCH /usuarios/:id
  * Actualiza un usuario existente
- * 
- * TODO: Completa esta función
  */
 const actualizarUsuario = (req, res) => {
   try {
-    // Ayudita:
-    // 1. Valida req.body con updateUsuarioSchema.validate()
-    // 2. Obtén el ID de req.params.id
-    // 3. Llama a usuarioService.actualizarUsuario(id, value)
-    // 4. Si el usuario NO existe, responde con sendError(res, 'Usuario no encontrado', 404)
-    // 5. Si el usuario EXISTE, responde con sendSuccess(res, usuarioActualizado, 'Usuario actualizado')
-    
+    const { error, value } = updateUsuarioSchema.validate(req.body);
+
+    if (error) {
+      return sendError(
+        res,
+        "Error en validación de datos",
+        400,
+        error.details.map((err) => err.message),
+      );
+    }
+
+    const { id } = req.params;
+    const usuarioActualizado = usuarioService.actualizarUsuario(id, value);
+
+    if (!usuarioActualizado) {
+      return sendError(res, "Usuario no encontrado", 404);
+    }
+
+    return sendSuccess(
+      res,
+      usuarioActualizado,
+      "Usuario actualizado exitosamente",
+    );
   } catch (error) {
-    return sendError(res, 'Error al actualizar usuario', 500);
+    return sendError(res, "Error al actualizar usuario", 500);
   }
 };
 
@@ -100,5 +110,5 @@ module.exports = {
   crearUsuario,
   obtenerTodosLosUsuarios,
   obtenerUsuarioPorId,
-  actualizarUsuario
+  actualizarUsuario,
 };
