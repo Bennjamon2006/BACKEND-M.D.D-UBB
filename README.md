@@ -1,8 +1,10 @@
 # Backend de Usuarios - Tarea Metodología
 
+## Contexto
+
 Backend sencillo para gestión de usuarios diseñado como material educativo.
 
-## Estructura del Proyecto
+### Estructura del Proyecto
 
 ```
 src/
@@ -15,7 +17,7 @@ src/
 └── index.js        # Punto de entrada
 ```
 
-## Instalación
+### Instalación
 
 1. Instala las dependencias:
 
@@ -37,7 +39,7 @@ npm run dev
 
 El servidor estará disponible en `http://localhost:3000`
 
-## Endpoints
+### Endpoints
 
 ### Crear Usuario (Implementado)
 
@@ -66,24 +68,24 @@ Body:
 
 `PATCH /usuarios/:id`
 
-## Notas Importantes
+### Notas Importantes
 
 - Actualmente usamos almacenamiento en memoria (array)
 - **Esta semana**: Conectaremos una base de datos real
 - Los endpoints GET y PATCH están listos para que los completes
 - Revisa los comentarios en los archivos para las ayuditas
 
-## Tarea para Estudiantes
+### Tarea para Estudiantes
 
 1. **Completa el endpoint GET /usuarios** - Debe retornar todos los usuarios
 2. **Completa el endpoint GET /usuarios/:id** - Debe retornar un usuario específico
 3. **Completa el endpoint PATCH /usuarios/:id** - Debe actualizar un usuario existente
 4. **Agrega validaciones** si lo consideras necesario en `src/validations/`
 
-## Tarea completada
+## Estado Actual
 
 Tarea completada por Benjamín Rivas, estudiante de la carrera de Ingeniería de Ejecución en Computación e Informática en la Universidad del Bío-Bío.
 
-## Funcionalidades extra
+### Funcionalidades extra
 
 La rama actual (`main`), incluye las funcionalidades que se pidieron en la tarea, pero también se creó una rama adicional (`extra`) que incluye funcionalidades adicionales, como la eliminación de usuarios (`DELETE /usuarios/:id`), optimizaciones en operaciones, entre otras mejoras. Estas funcionalidades extra no son parte de la tarea, pero pueden ser revisadas para entender cómo se pueden extender las funcionalidades del backend.
