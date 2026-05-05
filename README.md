@@ -83,3 +83,11 @@ Body:
 ## Tarea completada
 
 Tarea completada por Benjamín Rivas, estudiante de la carrera de Ingeniería de Ejecución en Computación e Informática en la Universidad del Bío-Bío.
+
+## Funcionalidades extra
+
+- Endpoint DELETE /usuarios/:id para eliminar un usuario por ID
+- Optimización de servicio de usuarios usando un Map para acceso por ID O(1)
+- Definición de campos de usuario editables en un array para evitar almacenar datos innecesarios.
+- Refactorización de servicio de usuarios para devolver copias de objetos en lugar de referencias, evitando modificaciones accidentales desde controladores.
+- Creación de middleware `validarDatos` para validar campos de entrada en endpoints POST y PATCH, evitando código repetido en controladores.
