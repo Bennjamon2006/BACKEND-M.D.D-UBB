@@ -32,4 +32,7 @@ router.patch(
   usuarioController.actualizarUsuario,
 );
 
+// DELETE /usuarios/:id - Eliminar un usuario
+router.delete("/:id", usuarioController.eliminarUsuario);
+
 module.exports = router;

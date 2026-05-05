@@ -40,4 +40,5 @@ app.listen(config.PORT, () => {
   console.log(`   GET    /usuarios       - Obtener todos (implementado)`);
   console.log(`   GET    /usuarios/:id   - Obtener por ID (implementado)`);
   console.log(`   PATCH  /usuarios/:id   - Actualizar (implementado)`);
+  console.log(`   DELETE /usuarios/:id   - Eliminar (implementado)`);
 });

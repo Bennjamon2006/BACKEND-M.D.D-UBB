@@ -78,9 +78,29 @@ const actualizarUsuario = (req, res) => {
   }
 };
 
+/**
+ * DELETE /usuarios/:id
+ * Elimina un usuario existente
+ */
+const eliminarUsuario = (req, res) => {
+  try {
+    const { id } = req.params;
+    const usuarioEliminado = usuarioService.eliminarUsuario(id);
+
+    if (!usuarioEliminado) {
+      return sendError(res, "Usuario no encontrado", 404);
+    }
+
+    return sendSuccess(res, null, "Usuario eliminado exitosamente");
+  } catch (error) {
+    return sendError(res, "Error al eliminar usuario", 500);
+  }
+};
+
 module.exports = {
   crearUsuario,
   obtenerTodosLosUsuarios,
   obtenerUsuarioPorId,
   actualizarUsuario,
+  eliminarUsuario,
 };
