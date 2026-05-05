@@ -83,3 +83,7 @@ Body:
 ## Tarea completada
 
 Tarea completada por Benjamín Rivas, estudiante de la carrera de Ingeniería de Ejecución en Computación e Informática en la Universidad del Bío-Bío.
+
+## Funcionalidades extra
+
+La rama actual (`main`), incluye las funcionalidades que se pidieron en la tarea, pero también se creó una rama adicional (`extra`) que incluye funcionalidades adicionales, como la eliminación de usuarios (`DELETE /usuarios/:id`), optimizaciones en operaciones, entre otras mejoras. Estas funcionalidades extra no son parte de la tarea, pero pueden ser revisadas para entender cómo se pueden extender las funcionalidades del backend.
